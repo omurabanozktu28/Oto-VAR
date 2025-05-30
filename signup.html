@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Üye Ol</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url("assets/images/login.png") no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-form {
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="signupForm" class="signup-form">
+        <h4 class="mb-4 text-center">Üye Ol</h4>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Ad Soyad</label>
+            <input type="text" class="form-control" id="name" placeholder="Adınızı girin" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">E-posta</label>
+            <input type="email" class="form-control" id="email" placeholder="E-posta adresiniz" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Şifre</label>
+            <input type="password" class="form-control" id="password" placeholder="Şifre belirleyin" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Şifre (Tekrar)</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Şifrenizi tekrar girin" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Kayıt Ol</button>
+
+        <div class="login-link">
+            <p>Zaten hesabınız var mı? <a href="login.html">Giriş Yap</a></p>
+        </div>
+
+        <p class="text-center text-muted mt-3">&copy; 2025 Oto-VAR</p>
+    </form>
+
+    <script>
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Şifreler eşleşmiyor.");
+                return;
+            }
+
+            
+        });
+    </script>
+    <script>
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            alert("Şifreler eşleşmiyor.");
+            return;
+        }
+
+        // Kullanıcıyı localStorage'a kaydet
+        var user = {
+            name: name,
+            email: email,
+            password: password
+        };
+
+        localStorage.setItem("user", JSON.stringify(user));
+
+        alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
+        window.location.href = "login.html";
+    });
+</script>
+
+</body>
+</html>

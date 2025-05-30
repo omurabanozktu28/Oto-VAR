@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafikler - Oto-VAR</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            }
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        
+
+        <div id="fuelChart" class="chart-container"></div>
+        <div id="priceChart" class="chart-container"></div>
+        <div id="powerChart" class="chart-container"></div>
+        <div id="gearChart" class="chart-container"></div>
+    </div>
+    <div class="container text-center mb-5">
+        <button onclick="geriBildirimAl()" class="btn btn-success">
+            Grafikler faydalı mıydı?
+        </button>
+    </div>
+
+
+    <script>
+        // --- 1. Yakıt Türü Dağılımı ---
+        const fuelChart = echarts.init(document.getElementById('fuelChart'));
+        fuelChart.setOption({
+            title: { text: 'Yakıt Türü Dağılımı', left: 'center' },
+            tooltip: { trigger: 'item' },
+            legend: { bottom: 10, left: 'center' },
+            series: [{
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: 128, name: 'Benzin' },
+                    { value: 74, name: 'Dizel' },
+                    { value: 76, name: 'Elektrik' },
+                    { value: 69, name: 'Hibrit' }
+                ]
+            }]
+        });
+
+        // --- 2. Fiyat Dağılımı ---
+        const priceChart = echarts.init(document.getElementById('priceChart'));
+        priceChart.setOption({
+            title: { text: 'Araç Fiyat Dağılımı (M TL)', left: 'center' },
+            tooltip: {},
+            xAxis: { type: 'category', data: ['2M', '3M', '4M', '5M', '6M', '7M', '8M', '9M', '10M+'] },
+            yAxis: { type: 'value' },
+            series: [{
+                data: [12, 20, 15, 8, 6, 3, 2, 1, 1],
+                type: 'bar'
+            }]
+        });
+
+        // --- 3. Beygir Gücü Dağılımı ---
+        const powerChart = echarts.init(document.getElementById('powerChart'));
+        powerChart.setOption({
+            title: { text: 'Beygir Gücü Dağılımı', left: 'center' },
+            tooltip: {},
+            xAxis: { type: 'category', data: ['0-50','50-100','100-150','150-200', '200-250', '250-300', '300-350','350-400','400-450','450-500','500-550','550-600','600-650','650-700'] },
+            yAxis: { type: 'value' },
+            series: [{
+                data: [2, 19, 108, 84, 44, 25, 26, 9, 6, 2, 12, 2,  8,  1 ],
+                type: 'bar'
+            }]
+        });
+
+        // --- 4. Vites Türü Dağılımı ---
+        const gearChart = echarts.init(document.getElementById('gearChart'));
+        gearChart.setOption({
+            title: { text: 'Vites Türü Dağılımı', left: 'center' },
+            tooltip: { trigger: 'item' },
+            legend: { bottom: 10, left: 'center' },
+            series: [{
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    { value: 307, name: 'Otomatik' },
+                    { value: 41, name: 'Manuel' }
+                ]
+            }]
+        });
+    </script>
+    <script>
+    function geriBildirimAl() {
+        Swal.fire({
+            title: 'Grafikler hakkında ne düşünüyorsunuz?',
+            input: 'textarea',
+            inputLabel: 'Geri bildiriminiz',
+            inputPlaceholder: 'Grafikler size yardımcı oldu mu? Önerileriniz varsa yazabilirsiniz.',
+            inputAttributes: {
+                'aria-label': 'Geri bildirim alanı'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Gönder',
+            cancelButtonText: 'İptal',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Lütfen bir şeyler yazın!'
+                }
+            }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Teşekkürler!',
+                'Geri bildiriminiz kaydedildi.',
+                'success'
+            );
+
+            // ⚠️ İsteğe bağlı: sonucu console'a yaz (veya sunucuya gönderebilirsin)
+            console.log("Gelen geri bildirim:", result.value);
+        }
+    });
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+</html>
